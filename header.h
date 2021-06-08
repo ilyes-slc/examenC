@@ -54,6 +54,8 @@ void saisirCompte (Compte *c );
 
 Cellule * chercherCompte(LDC l ,int num);
 
+int LDC_vide(LDC l);
+
 
 LDC ajouterCompte(LDC l, Compte c);
 
