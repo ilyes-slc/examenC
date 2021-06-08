@@ -1,14 +1,18 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-typedef struct scooter Scooter;
+typedef struct compte Compte;
 
-struct scooter
+struct compte
 {
-    char id[10];
-    int etat;
-    float kilom;
-    Date d;
+    char nom[10];
+    int num;
+    char type;
+    float solde;
+    Date date;
 };
 
 typedef struct date Date;
@@ -19,32 +23,55 @@ struct date
     int annee;   
 };
 
-typedef struct Cellule* liste;
-typedef struct Cellule Cellule;
+typedef struct cellule Cellule;
+typedef struct listeDC LDC;
 
-struct Cellule
+struct cellule
 {
-    Scooter s;
-    struct Cellule* suivant;
+    Compte c;
+    struct cellule* suiv;
+    struct cellule* prec;
 };
 
-typedef struct
+struct listeDC
 {
-    struct Cellule* tete;
-    struct Cellule* queu;
-} file;
+    Cellule* tete;
+    Cellule* queu;
+};
+
+typedef struct noeud* Arbre;
+
+struct noeud
+{
+    Compte c;
+    struct noeud* pL;
+    struct noeud* pR;
+};
 
 
-void saisirscooter(Scooter *s);
-Cellule* chercherScooter(liste l,char id[]);
-liste ajouterScooter(liste l,Scooter s);
-void louerscooter(liste l,char id[]);
-void afficherscooter(liste l,char nomFichier[]);
-file enfilerScooter(liste l,file f,char id[]);
-void entretenirscooter(file *f,liste l);
-Arbre insererScooters(Arbre A,Scooter s);
-Arbre construireArbre(Arbre A,liste l);
-Arbre maxScooters(Arbre A);
+
+void saisirCompte (Compte *c );
+
+Cellule * chercherCompte(LDC l ,int num);
+
+
+LDC ajouterCompte(LDC l, Compte c);
+
+
+ void Operation (LDC,int num , float montant,char operation , Date d);
+
+
+ void afficherCompte (LDC l);
+
+ void sauvegarderCompte (LDC L , char nomfichier[]);
+
+ Arbre inserer (Arbre a,Compte c);
+
+ Arbre remplirArbre (Arbre a,LDC l);
+
+ void afficher (Arbre a);
+
+ int calculerNbr (Arbre a, float montant);
 
 #endif // PILE_FILE_H_INCLUDED
 
